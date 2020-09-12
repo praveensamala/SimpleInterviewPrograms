@@ -5,8 +5,12 @@ public class StringAnagram
 	public static void main(String args[]) 
 	{	
 		String text1 = "ABC";
-		String text2 = "XCB";
-		boolean angram = true;
+		String text2 = "ACB";
+		boolean anagram = true;
+		
+		if (text1.length() != text2.length()) {
+			anagram = false;
+		}
 		
 		for (int i=0; i<text1.length(); i++) {
 			Character x = text1.charAt(i);
@@ -26,15 +30,15 @@ public class StringAnagram
 			}
 			
 			if (counter1 != counter2) {
-				angram = false;
+				anagram = false;
 			}
 			
-			if (!angram) {
+			if (!anagram) {
 				break;
 			}
 		}
 		
-		if (angram) {
+		if (anagram) {
 			System.out.println("given strings are anagram");
 		}
 		else {
