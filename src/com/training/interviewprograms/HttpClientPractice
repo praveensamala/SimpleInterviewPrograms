@@ -1,0 +1,35 @@
+package com.practice.programs;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.apache.http.Header;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+public class HttpClientPractice {
+	public static void main(String args[]) throws ClientProtocolException, IOException {
+		CloseableHttpClient client = HttpClients.createDefault();
+		HttpGet httpget = new HttpGet("https://jsonplaceholder.typicode.com/posts");
+		CloseableHttpResponse response = client.execute(httpget);
+		
+		System.out.println("status code : "+response.getStatusLine().getStatusCode());
+		System.out.println("response body : "+EntityUtils.toString(response.getEntity()));
+		
+		Header headersarray[] = response.getAllHeaders();
+		HashMap<String, String> headersmap = new HashMap<String, String>();
+		for (Header header : headersarray) {
+			System.out.println(header.getName() + ": "+ header.getValue());
+			headersmap.put(header.getName(), header.getValue());
+		}
+		
+		System.out.println("-----");
+		for (String text : headersmap.keySet()) {
+			System.out.println("header details : " + text + ": "+headersmap.get(text));
+		}	
+	}
+}
